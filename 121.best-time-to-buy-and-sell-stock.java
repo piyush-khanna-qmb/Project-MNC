@@ -2,15 +2,16 @@ class Solution
 {
     public int maxProfit(int[] a) 
     {
-        int grPro= 0, n= a.length, m= Integer.MAX_VALUE, pro= 0;
-        for(int i=0; i<n; i++)
+        int m= Integer.MAX_VALUE, pro, n= a.length, grPro= 0;
+        for(int= 0; i<n; i++)
         {
-            if(a[i] < m)
+            if(a[i] > m)
                 m= a[i];
+            
             pro= a[i]-m;
-            if(grPro < pro)
+            if(pro>grPro)
                 grPro= pro;
         }
-        return grPro;
+        return pro;
     }
 }
