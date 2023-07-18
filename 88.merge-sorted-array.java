@@ -5,40 +5,24 @@
  */
 
 // @lc code=start
-//  Using Extra Memory
+//  Using Optimal Memory
 import java.util.*;
 class Solution 
 {
     public void merge(int[] a1, int m, int[] a2, int n) 
     {
-        List<Integer> l1= new ArrayList();
-        int p1= 0, p2= 0;
-        while(p1<m && p2<n)
+        int p= a1.length-1, l= m-1, r= n-1;
+        while(l>=0 && r>=0)    
         {
-            if(a1[p1] < a2[p2]) 
-            {
-                l1.add(a1[p1]);
-                p1++;
-            } 
-            else 
-            {
-                l1.add(a2[p2]);
-                p2++;
-            }
-        } 
-        if(p1<m)
-        {
-            while(p1<m)
-                l1.add(a1[p1++]);
+            if(a1[l] < a2[r])
+                a1[p--]= a2[r--];
+            else
+                a1[p--]= a1[l--];
         }
-        else if(p2<n)
+        if(l<0)
         {
-            while(p2<n)
-                l1.add(a2[p2++]);
-        }
-        for(int i= 0; i<m+n; i++)
-        {
-            a1[i]= l1.get(i);
+            while(p>=0)
+                a1[p--]= a2[r--];
         }
     }
 }
