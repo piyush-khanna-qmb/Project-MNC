@@ -9,12 +9,16 @@ class Solution
 {
     public int[] sortedSquares(int[] a) 
     {
-        for(int i= 0; i<a.length; i++)
+        int p, i= 0, j= a.length-1;
+        int k[]= new int[a.length];
+        for(p= a.length-1; p>=0; p--)
         {
-            a[i]*= a[i];
-        }    
-        Arrays.sort(a);
-        return a;
+            if(Math.abs(a[i]) >= Math.abs(a[j]))
+                k[p]= a[i]*a[i++];
+            else
+                k[p]= a[j]*a[j--];
+        }
+        return k;
     }
 }
 // @lc code=end
