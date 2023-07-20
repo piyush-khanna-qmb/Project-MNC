@@ -9,25 +9,16 @@ class Solution
 {
     public int removeDuplicates(int[] a) 
     {
-        int l= 0, r= 0, tmp, cnt= 0;
-        Map<Integer, Boolean> hm= new HashMap<>();
-        while (l<a.length && r<a.length)
+        int p= 0;
+        if(a.length == 0)
+            return 0;
+        
+        for(int i= 1; i<a.length; i++)
         {
-            if(hm.containsKey(a[r]))
-            {
-                r++;
-            }
-            else 
-            {
-                cnt++;
-                tmp= a[r];
-                a[r]= a[l];
-                a[l]= tmp;
-                hm.put(a[l], true);
-                l++;
-            }
+            if(a[i] != a[p])
+                a[++p]= a[i];
         }
-        return cnt;
+        return p+1;
     }
 }
 // @lc code=end
