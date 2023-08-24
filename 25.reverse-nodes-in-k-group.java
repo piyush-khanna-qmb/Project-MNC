@@ -17,16 +17,39 @@
  */
 class Solution 
 {
+    private ListNode aageKaBhej(ListNode st, int k)
+    {
+        ListNode temp= st;
+        while(temp!=null && k-->0)
+            temp= temp.next;
+        return temp;
+    }
     public ListNode reverseKGroup(ListNode head, int k) 
     {
-        if(head.next == null)
-            return head;
+        ListNode dummy= new ListNode(-1, head);
+        ListNode Mai= dummy;
+        while(true)
+        {
+            ListNode Chela= aageKaBhej(Mai, k);
+            if(Chela==null)
+                break;
+            ListNode IskaPehla= Mai.next;
+            ListNode BaadKaPehla= Chela.next;
 
-        // Finding length of arr
-        int n= 0;
-        
-
-        return newHead;
+            ListNode yeWala, aglaLaunda, pichhlaLaunda;
+            pichhlaLaunda= yeWala= null;
+            aglaLaunda= Mai;
+            do {
+                yeWala= aglaLaunda;
+                aglaLaunda= yeWala.next;
+                yeWala.next= pichhlaLaunda;
+                pichhlaLaunda= yeWala;
+            } while(yeWala!=Chela);
+            Mai.next= Chela;
+            IskaPehla.next= BaadKaPehla;
+            Mai= IskaPehla;
+        }
+        return dummy.next;
     }
 }
 // @lc code=end
