@@ -19,36 +19,31 @@ class Solution
 {
     public ListNode mergeKLists(ListNode[] lists) 
     {
-        ListNode dummy= new ListNode(0);
-        ListNode head= dummy;
+        if(lists.length == 0)
+            return null;
+        ListNode ansHead= new ListNode(0);
+        ListNode ans= ansHead;
+        PriorityQueue<ListNode> minHeap= new PriorityQueue<ListNode>(
+            (a,b) -> a.val-b.val
+        );
+        ListNode smallest;
         int n= lists.length;
-        ListNode kk= Lists[0];
-        for(int i=1; i<n; i++)
+        for(int i=0; i<n; i++)
         {
-            if(lists[i].val < kk.val)
-                kk= lists[i];
+            if(lists[i] != null)
+                minHeap.offer(lists[i]);
         }
-        head.next= kk;
-        k= kk.next;
-        boolean bb;
-        while(true)
+
+        while(!minHeap.isEmpty())
         {
-            bb= false;
-            ListNode sm= lists[0];
-            for(int i= 1; i<lists.length; i++)
-            {
-                if(lists[i]!=null && sm.val > lists[i].val)
-                {
-                    bb= true;
-                    sm= lists;
-                }
-            }
-            if(bb == false)
-                break;
-            head.next= sm;
-            sm= sm.next;
+            smallest= minHeap.poll();
+            ans.next= smallest;
+            ans= ans.next;
+            smallest= smallest.next;
+            if(smallest != null)
+                minHeap.offer(smallest);
         }
-        return dummy.next;
+        return ansHead.next;
     }
 }
 // @lc code=end
