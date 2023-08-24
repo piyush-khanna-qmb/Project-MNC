@@ -17,23 +17,25 @@
  */
 class Solution 
 {
-    public boolean isPalin(char c[])
-    {
-        for(int i=0; i<c.length/2; i++)
-            if(c[i]!=c[c.length-1-i])
-                return false;
-        return true;
-    }
     public boolean isPalindrome(ListNode head) 
     {
-        StringBuilder sb= new StringBuilder();
+        if(head==null)
+            return true;
+        
         ListNode temp= head;
+        int sum= 0, tt, rev= 0;
         while(temp!=null)
         {
-            sb.append(temp.val);
+            sum= sum*10+temp.val;
             temp= temp.next;
         }
-        return isPalin(new String(sb).toCharArray());
+        tt= sum;
+        while(tt!=0)
+        {
+            rev= rev*10 + tt%10;
+            tt/= 10;
+        }
+        return sum == rev;
     }
 }
 // @lc code=end
