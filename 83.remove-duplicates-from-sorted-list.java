@@ -17,9 +17,29 @@
  */
 class Solution 
 {
+    private ListNode nextGay(ListNode st)
+    {
+        if(st==null || st.next==null)
+            return null;
+        
+        ListNode temp= st;
+        while(temp.val == st.val)
+            temp= temp.next;
+
+        return temp;
+    }
     public ListNode deleteDuplicates(ListNode head) 
     {
-            
+        if(head == null || head.next==null)
+            return head;
+        
+        ListNode temp= head;
+        while(temp!=null)
+        {
+            temp.next= nextGay(temp);
+            temp= temp.next;
+        }
+        return head;
     }
 }
 // @lc code=end
