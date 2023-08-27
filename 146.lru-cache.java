@@ -7,46 +7,28 @@
 // @lc code=start
 class LRUCache
 {
-    public static class Node
-    {
-        int key, value;
-        Node(int k, int v)
-        {
-            key= k;
-            value= v;
-        }
-    }
-    HashMap<Integer, Integer> hm= new HashMap();
-    Queue<Node> minHeap= new PriorityQueue<Node>(
-        (a,b) -> (a.value-b.value)
-    );
-    int total;
+    Map<Integer, Integer> lhm;
+    
     public LRUCache(int capacity) 
     {
-        total= capacity;
+        lhm= new LinkedHashMap<>(capacity, 1.1f, true) {
+
+            public boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+                return size() > capacity;
+            }
+        }   ; 
     }
     
     public int get(int key) 
     {
-        return hm.getOrDefault(key);
+        return lhm.getOrDefault(key, -1);
     }
-    
+
     public void put(int key, int value) 
     {
-        if(hm.size() > total)
-        {
-            int toBeRemovedKey= minHeap.poll().key;
-            hm.remove(toBeRemovedKey);
-        }
-        hm.put(key, value);
+        lhm.put(key, value);
     }
 }
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */
 // @lc code=end
 
