@@ -5,13 +5,15 @@ class mergeSort
     {
         int tmp[]= new int[high-low+1];
         int left= low, right= mid+1, k= 0;
-        while(left<=mid && right<=high)
+
+        while(left<=mid && right<=high) 
         {
             if(arr[left] <= arr[right])
                 tmp[k++]= arr[left++];
             else
                 tmp[k++]= arr[right++];
         }
+
         while(left<=mid)
             tmp[k++]= arr[left++];
         while(right<=high)
