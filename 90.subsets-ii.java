@@ -7,29 +7,26 @@
 // @lc code=start
 class Solution 
 {
-    public void func(List<List<Integer>> ans, List<Integer> ds, int i, int nums[], Set<List<Integer>> diary)
+    public void func(List<List<Integer>> ans, List<Integer> ds, int i, int nums[])
     {
-        if(i==nums.length) {
-            List<Integer> kuppi= new ArrayList(ds);
-            if(!diary.contains(kuppi)) {
-                ans.add(kuppi);
-                diary.add(kuppi);
-            }
-            return;
-        }
-        
-        func(ans, ds, i+1, nums, diary);
+        ans.add(new ArrayList(ds));
 
-        ds.add(nums[i]);
-        func(ans, ds, i+1, nums, diary);
-        
-        ds.remove(ds.size()-1);
+        for(int ind= i; ind<nums.length; ind++)
+        {
+            if(ind!=i && nums[ind]==nums[ind-1])
+                continue;
+            
+            ds.add(nums[ind]);
+            func(ans, ds, ind+1, nums);
+
+            ds.remove(ds.size()-1);
+        }
     }
     public List<List<Integer>> subsetsWithDup(int[] nums) 
     {
         List<List<Integer>> ans= new ArrayList();
-        Set<List<Integer>> diary= new HashSet();
-        func(ans, new ArrayList(), 0, nums, diary);
+        Arrays.sort(nums);
+        func(ans, new ArrayList(), 0, nums);
         return ans;
     }
 }
