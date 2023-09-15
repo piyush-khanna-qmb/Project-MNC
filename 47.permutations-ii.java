@@ -7,39 +7,40 @@
 // @lc code=start
 class Solution 
 {
-    private void swap(int arr[], int i, int j)
+    private void func(List<List<Integer>> ans, List<Integer> ds, int arr[], boolean vis[])
     {
-        int tmp= arr[i];
-        arr[i]= arr[j];
-        arr[j]= tmp;
-    }
-
-    private void duggal(List<List<Integer>> ans, int arr[], int i)
-    {
-        if(i==arr.length)
+        if(ds.size() == arr.length)
         {
-            List<Integer> billu= new ArrayList();
-            for(int ekVariableKaChhotaSaNaamTaakiUseBulaSakuHuiHuiHui: arr)
-                billu.add(ekVariableKaChhotaSaNaamTaakiUseBulaSakuHuiHuiHui);
-            ans.add(billu);
+            ans.add(new ArrayList(ds));
             return;
         }
-        for(int k=i; k<arr.length; k++)
+        for(int i=0; i<arr.length; i++)
         {
-            if(i!=k && arr[i]==arr[k])
+            if(vis[i] || (i>0 && arr[i]==arr[i-1] && !vis[i-1]))
+                /*
+                i>0 sirf isliye hai kyuki arr[i-1] krne me underflow na ho jaye, although main motive hai ki koi value last value ke baraabar na ho tatha usse pichhle wala visited na ho to vo case usi recursion ka hissa hoga jo redundant hogi, isliye use chhodh do.
+
+                In input example: [1,1,1,2]
+                Ye || ke baad waala saara jhamela isliye likha gaya hai taaki [❌,✅,❌,❌] wali condition na ban paaye. Bole to aisi value jo mujhe pta hai ki pehle hi tackle kar li gyi hogi kyuki usse pehle same hi value aati hai uske lena hi nhi hai, check bhi nhi krna ki usse kuchh naya permute ban skta hai ki nhi, kyuki ban hi nahi sakta.
+                */
                 continue;
-            swap(arr, i, k);
-            duggal(ans, arr, i+1);
-            swap(arr, i, k);
+            
+            vis[i]= true;
+            ds.add(arr[i]);
+            func(ans, ds, arr, vis);
+            vis[i]= false;
+            ds.remove(ds.size()-1);
         }
     }
 
     public List<List<Integer>> permuteUnique(int[] nums) 
     {
         List<List<Integer>> ans= new ArrayList();
-        duggal(ans, nums, 0);
+        List<Integer> ds = new ArrayList();
+        boolean vis[]= new boolean[nums.length];
+        Arrays.sort(nums);
+        func(ans, ds, nums, vis);
         return ans;
     }
 }
 // @lc code=end
-
