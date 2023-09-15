@@ -15,14 +15,16 @@ class Solution
     }
     private void ting(List<List<Integer>> ans, int arr[], int i)
     {
-        if(i>=arr.length-1) {
-            List<Integer> hui= new ArrayList();
-            for(int n: arr) 
-                hui.add(n);
-            ans.add(hui);
+        if(i==arr.length-1)
+        {
+            List<Integer> billu= new ArrayList();
+            for(int n: arr)
+                billu.add(n);
+            ans.add(billu);
             return;
         }
-        for(int k= i; k<arr.length; k++) {
+        for(int k= i; k<arr.length; k++)
+        {
             swap(arr, i, k);
             ting(ans, arr, i+1);
             swap(arr, i, k);
