@@ -7,33 +7,31 @@
 // @lc code=start
 class Solution 
 {
-    private void swap(int arr[], int i, int j)
+    private void ting(List<List<Integer>> ans, List<Integer> ds, int arr[], boolean vis[])
     {
-        int tmp= arr[i];
-        arr[i]= arr[j];
-        arr[j]= tmp;
-    }
-    private void ting(List<List<Integer>> ans, int arr[], int i)
-    {
-        if(i==arr.length-1)
+        if(ds.size()==arr.length)
         {
-            List<Integer> billu= new ArrayList();
-            for(int n: arr)
-                billu.add(n);
-            ans.add(billu);
+            ans.add(new ArrayList(ds));
             return;
         }
-        for(int k= i; k<arr.length; k++)
+        for(int i=0; i<arr.length; i++)
         {
-            swap(arr, i, k);
-            ting(ans, arr, i+1);
-            swap(arr, i, k);
+            if(!vis[i])
+            {
+                vis[i]= true;
+                ds.add(arr[i]);
+                ting(ans, ds, arr, vis);
+                vis[i]= false;
+                ds.remove(Integer.valueOf(arr[i]));
+            }
         }
     }
     public List<List<Integer>> permute(int[] nums) 
     {
         List<List<Integer>> ans= new ArrayList();
-        ting(ans, nums, 0);
+        List<Integer> ds= new ArrayList();
+        boolean vis[]= new boolean[nums.length];
+        ting(ans, ds, nums, vis);
         return ans;
     }
 }
