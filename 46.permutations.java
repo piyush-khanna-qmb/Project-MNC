@@ -1,10 +1,3 @@
-/*
- * @lc app=leetcode id=46 lang=java
- *
- * [46] Permutations
- */
-
-// @lc code=start
 class Solution 
 {
     private void ting(List<List<Integer>> ans, List<Integer> ds, int arr[], boolean vis[])
