@@ -7,20 +7,23 @@
 // @lc code=start
 class Solution 
 {
-    private void subsexy(int nums[], List<List<Integer>> ans, List<Integer> k, int i)
+    private void sexyFunc(List<List<Integer>> ans, List<Integer> ds, int i, int nums[])
     {
-        if(i==nums.length)
-            ans.add(k);
-
-        k.add(nums[i]);
-        subsexy(nums, ans, k, i+1);
-        k.remove(Integer.valueOf(nums[i]));
-        subsexy(nums, ans, k, i+1);
+        if(i==nums.length) 
+        {
+            ans.add(new ArrayList(ds));
+            return;
+        }
+        ds.add(nums[i]);
+        sexyFunc(ans, ds, i+1, nums);
+        ds.remove(ds.size()-1);
+        sexyFunc(ans, ds, i+1, nums);
     }
+
     public List<List<Integer>> subsets(int[] nums) 
     {
         List<List<Integer>> ans= new ArrayList();
-        subsexy(nums, ans, new ArrayList(), 0);
+        sexyFunc(ans, new ArrayList(), 0, nums);
         return ans;
     }
 }
