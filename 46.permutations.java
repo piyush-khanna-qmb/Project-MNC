@@ -1,32 +1,31 @@
 class Solution 
 {
-    private void swap(int arr[], int i, int j)
+    private void ting(List<List<Integer>> ans, List<Integer> ds, int arr[], boolean vis[])
     {
-        int tmp= arr[i];
-        arr[i]= arr[j];
-        arr[j]= tmp;
-        return;
-    }
-
-    private void ting(List<List<Integer>> ans, List<Integer> ds, int i, int arr[])
-    {
-        if(i == arr.length-1)
+        if(ds.size() == arr.length)
         {
             ans.add(new ArrayList(ds));
             return;
         }
 
-        for(int j= i; j<arr.length; j++)
+        for(int i= 0; i<arr.length; i++)
         {
-            swap(arr, i, j)
-            ting(ans, ds, i+1, arr);
+            if(!vis[i])
+            {
+                vis[i]= true;
+                ds.add(arr[i]);
+                ting(ans, ds, arr, vis);
+
+                vis[i]= false;
+                ds.remove(Integer.valueOf(arr[i]));
+            }
         }
     }
 
     public List<List<Integer>> permute(int[] nums) 
     {
         List<List<Integer>> ans= new ArrayList();
-        ting(ans, ds, nums);
+        ting(ans, new ArrayList(), nums, new boolean[nums.length]);
         return ans;
     }
 }
