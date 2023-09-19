@@ -13,7 +13,7 @@ class Solution
 
         for(int ind= i; ind<nums.length; ind++)
         {
-            if(ind!=i && nums[ind]==nums[ind-1])
+            if(i!=ind && nums[ind]==nums[ind-1])
                 continue;
             
             ds.add(nums[ind]);
