@@ -7,31 +7,32 @@
 // @lc code=start
 class Solution 
 {
-    private void func(List<List<Integer>> ans, List<Integer> beech, int arr[], int i, int tar)
+    private void func(List<List<Integer>> ans, List<Integer> ds, int arr[], int i, int tar)
     {
-        if(tar == 0) {
-            ans.add(new ArrayList(beech));
-            return;
-        }
-        if(i>=arr.length || arr[i]>tar) {
-            return;
-        }
-        for(int ind= i; ind<arr.length; ind++) 
+        if(tar == 0) 
         {
-            if(ind>i && arr[ind]==arr[ind-1]) {
+            ans.add(new ArrayList(ds));
+            return;
+        }
+        if(i>=arr.length || arr[i]>tar)
+            return;
+        
+        for(int j= i; j<arr.length; j++)
+        {
+            if(i!=j && arr[j]==arr[j-1])
                 continue;
-            }
-            beech.add(arr[ind]);
-            func(ans, beech, arr, ind+1, tar-arr[ind]);
             
-            beech.remove(beech.size()-1);
+            ds.add(arr[j]);
+            func(ans, ds, arr, j+1, tar-arr[j]);
+
+            ds.remove(ds.size()-1);
         }
     }   
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) 
+    public List<List<Integer>> combinationSum2(int[] arr, int tar) 
     {
-        Arrays.sort(candidates);
+        Arrays.sort(arr);
         List<List<Integer>> ans= new ArrayList();
-        func(ans, new ArrayList(), candidates, 0, target);
+        func(ans, new ArrayList(), arr, 0, tar);
         return ans;
     }
 }
