@@ -7,28 +7,26 @@
 // @lc code=start
 class Solution 
 {
-    private List<String> multi(List<String> a, String b)
+    private void multi(List<String> ans, Map<Character, String> hm, int i, String st, StringBuilder ds)
     {
-        if(a.size() == 0)
+        if(i == st.length())
         {
-            for(char c: b.toCharArray())
-                a.add(""+c);
-            return a;
+            ans.add(new String(ds));
+            return;
         }
-        List<String> ans= new ArrayList();
-        for(int i=0; i<a.size(); i++)
+        String here= hm.get(st.charAt(i));
+        for(int j= 0; j<here.length(); j++)
         {
-            String sa= a.get(i);
-            for(int j=0; j<b.length(); j++)
-            {
-                ans.add(sa+b.charAt(j));
-            }
+            ds.append(here.charAt(j));
+            multi(ans, hm, i+1, st, ds);
+            ds.deleteCharAt(ds.length()-1);
         }
-        return ans;
     }
 
     public List<String> letterCombinations(String digits) 
     {
+        if(digits.isEmpty())
+            return new ArrayList();
         Map<Character, String> hm= new HashMap();
         hm.put('2', "abc");
         hm.put('3', "def");
@@ -40,13 +38,8 @@ class Solution
         hm.put('9', "wxyz");
 
         List<String> ans= new ArrayList();
-        for(char c: digits.toCharArray())
-        {
-            String tt= hm.get(c);
-            ans= multi(ans, tt);
-        }
+        multi(ans, hm, 0, digits, new StringBuilder());
         return ans;
     }
 }
 // @lc code=end
-
