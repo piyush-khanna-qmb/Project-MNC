@@ -9,16 +9,14 @@ class Solution
 {
     public int maxSubArray(int[] nums) 
     {
-        // Normal Kadane Lagni hai
-        int globalSum= nums[0];
-        int curSum= nums[0];
-        for(int i=1; i<nums.length; i++)
-        {
-            curSum= Math.max(nums[i], curSum+nums[i]);
-            globalSum= Math.max(curSum, globalSum);
+        // Firse taake achhe se yaad ho jaaye
+        int glSum, curSum;
+        glSum = curSum = nums[0];
+        for(int i= 1; i<nums.length; i++) {
+            curSum= Math.max(curSum+nums[i], nums[i]);
+            glSum= Math.max(glSum, curSum);
         }
-        return globalSum;     
+        return glSum;
     }
 }
 // @lc code=end
-
