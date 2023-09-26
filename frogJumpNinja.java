@@ -7,20 +7,15 @@ public class frogJumpNinja
         if(n==0)
             return 0;
         
-        
-        if(dp[n-1] == 0)
-            dp[n-1]= anns(n-1, heights, dp);
-        int left= dp[n-1] + Math.abs(heights[n]-heights[n-1]);
+        if(dp[n]!=0)
+            return dp[n];
 
+        int left= anns(n-1, heights, dp) + Math.abs(heights[n]-heights[n-1]);
         int right= Integer.MAX_VALUE;
         if (n>1)
-        {
-            if(dp[n-2] == 0)
-                dp[n-2]= anns(n-2, heights, dp);
-            right= dp[n-2] + Math.abs(heights[n]-heights[n-2]);
-        }
+            right= anns(n-2, heights, dp) + Math.abs(heights[n]-heights[n-2]);
         
-        return Math.min(left, right);
+        return dp[n]=Math.min(left, right);
     }
 
     public static int frogJump(int n, int heights[]) 
