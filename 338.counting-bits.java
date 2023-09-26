@@ -22,7 +22,6 @@ class Solution
         int ans[]= new int[n+1];
         for(int i= 0; i<=n; i++)
             ans[i]= numsOfOnes(Integer.toBinaryString(i));
-        
         return ans;
     }
 }
