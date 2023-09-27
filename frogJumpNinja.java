@@ -14,7 +14,6 @@ public class frogJumpNinja
         int right= Integer.MAX_VALUE;
         if (n>1)
             right= anns(n-2, heights, dp) + Math.abs(heights[n]-heights[n-2]);
-        
         return dp[n]=Math.min(left, right);
     }
 
