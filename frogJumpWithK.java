@@ -34,7 +34,7 @@ class frogJumpWithK
         {
             for(int j= i+1; j<n && j<=i+k; j++)
             {
-                dp[j]= Math.min(dp[j], dp[0]+Math.abs(arr[j]-arr[i]));
+                dp[j]= Math.min(dp[i-j], dp[0]+Math.abs(arr[j]-arr[i]));
             }
             // print(dp);
         }
