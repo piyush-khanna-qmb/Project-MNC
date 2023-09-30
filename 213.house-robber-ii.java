@@ -26,7 +26,7 @@ class Solution
     }
     public int rob(int[] nums) 
     {
-        if(nums.length == 1)
+        if(nums.length==1)
             return nums[0];
         int n= nums.length;
         int dp[]= new int[n];
