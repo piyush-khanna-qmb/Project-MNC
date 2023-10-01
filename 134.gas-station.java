@@ -13,12 +13,10 @@ class Solution
         int totCost= 0;
         int startInd= 0;
         int currGas= 0;
-
         for(int i=0; i<gas.length; i++) {
             totGas+= gas[i];
             totCost+= cost[i];
-            currGas+= gas[i]-cost[i];
-            
+            currGas+= gas[i]-cost[i];            
             if(currGas < 0) {
                 startInd= i+1;
                 currGas= 0;
