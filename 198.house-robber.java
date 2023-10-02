@@ -9,18 +9,18 @@ class Solution
 {
     public int rob(int[] nums) 
     {
+        if(nums.length == 1)
+            return nums[0];
+
         int a= 0;
         int b= nums[0];
-
-        for(int i= 1; i<nums.length; i++)
-        {
-            int pick= nums[i]+a;
-            int noPick= b;
-            nums[i]= Math.max(pick, noPick);
-            a=b;
-            b=nums[i];
+        int c= b;
+        for(int i= 1; i<nums.length; i++) {
+            c= Math.max(a+nums[i] , b);
+            a= b; 
+            b= c;
         }
-        return b;
+        return c;
     }
 }
 // @lc code=end
