@@ -14,7 +14,8 @@ class Solution
         {
             if(a[l]!=0)
             {
-                l++; r++;
+                l++; 
+                r++;
             } 
             else if(a[l]==0 && a[r]==0)
             {
