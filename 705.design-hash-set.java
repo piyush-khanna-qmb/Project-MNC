@@ -9,7 +9,6 @@ class MyHashSet
 {
     int B_SIZE;
     boolean arse[];
-
     public MyHashSet() 
     {
         B_SIZE= (int) Math.pow(10,6);
