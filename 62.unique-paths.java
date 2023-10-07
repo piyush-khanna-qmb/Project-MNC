@@ -9,23 +9,11 @@ class Solution
 {
     public int uniquePaths(int m, int n) 
     {
-        int prev[]= new int[n];
-        int temp[]= Arrays.copyOf(prev, n);
-        temp[0]= 1;
-        int up, left;
-        for(int i= 0; i<m; i++)
-        {
-            for(int j= 0; j<n; j++)
-            {
-                if(i==0 && j==0)
-                    continue;
-                left= (j>0) ? temp[j-1] : 0;
-                up= (i>0) ? prev[j] : 0;
-                temp[j]= left+up;
-            }
-            prev= temp;
-        }
-        return prev[n-1];
+        double ans= 1;
+        for(int i= 1; i<=m-1; i++)
+            ans= ans*(n-1+i)/i;
+        
+        return (int)ans;
     }
 }
 // @lc code=end
