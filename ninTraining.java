@@ -1,40 +1,43 @@
-if(dp[n][last] != -1)
-            return dp[n][last];public class Solution
+
+import java.util.*;
+
+class Solution 
 {
-    private static int f(int n, int points[][], int last, int dp[][])
+    private static int f(int day, int lastTask, int points[][], int dp[][])
     {
-        if(n == 0)
+        if(day == 0)
         {
             int maxi= 0;
             for(int i= 0; i<3; i++)
             {
-                if(i != last)
+                if(i != lastTask)
+                {
                     maxi= Math.max(maxi, points[0][i]);
+                }
             }
             return maxi;
         }
-        if(dp[n][last] != -1)
-            return dp[n][last];
-
+        if(dp[day][lastTask]!=-1)
+            return dp[day][lastTask];
+        
         int maxi= 0;
-        for(int i=0; i<3; i++)
+        for(int i= 0; i<3; i++)
         {
-            if(i != last)
-                maxi= Math.max(maxi, points[n][i]+f(n-1, points, i, dp));
+            if(i != lastTask)
+            {
+                int thisPoint= points[day][i] + f(day-1, i, points, dp);
+                maxi= Math.max(maxi, thisPoint); 
+            }
         }
-        return dp[n][last]= maxi;
+        return dp[day][lastTask]= maxi;
     }
 
     public static int ninjaTraining(int n, int points[][]) 
     {
         int dp[][]= new int[n][4];
-        for(int i= 0; i<n; i++)
-        {
-            for(int j= 0; j<4; j++)
-            {
-                dp[i][j]= -1;
-            }
-        }
-        return f(n-1, points, 3, dp);
+        for(int r[]: dp)
+            Arrays.fill(r, -1);
+
+        return f(n-1, 3, points, dp);   
     }
 }
