@@ -7,32 +7,28 @@
 // @lc code=start
 class Solution 
 {
-    private int f(int matrix[][], int r, int c, int dp[][])
-    {
-        if(c<0 || c>=matrix[0].length)
-            return Integer.MAX_VALUE;
-        if(r==0)
-            return matrix[r][c];
-        if(dp[r][c] != -1)
-            return dp[r][c];
-        
-        int up= f(matrix, r-1, c, dp);
-        int lu= f(matrix, r-1, c-1, dp);
-        int ru= f(matrix, r-1, c+1, dp);
-        return dp[r][c]= Math.min(Math.min(up,lu),ru)+matrix[r][c];
-    }
-
     public int minFallingPathSum(int[][] matrix) 
     {
-        int mmin= Integer.MAX_VALUE;
-        int dp[][]= new int[matrix.length][matrix[0].length];
-        for(int r[]: dp)
-            Arrays.fill(r, -1);
-        for(int i= 0; i<matrix[0].length; i++)
+        int m= matrix.length;
+        int n= matrix[0].length;
+        int dp[][]= new int[m][n];
+        for(int i= 0; i<n; i++)
+            dp[0][i]= matrix[0][i];
+        
+        int ans= Integer.MAX_VALUE;
+        for(int r= 1; r<m; r++)
         {
-            mmin= Math.min(mmin, f(matrix, matrix.length-1, i, dp));
+            for(int c= 0; c<n; c++)
+            {
+                int up= dp[r-1][c];
+                int lu= c>0? dp[r-1][c-1] : Integer.MAX_VALUE;
+                int ru= c<n-1? dp[r-1][c+1] : Integer.MAX_VALUE;
+                dp[r][c]= matrix[r][c]+Math.min(Math.min(up,lu),ru);
+            }
         }
-        return mmin;
+        for(int i= 0; i<n; i++)
+            ans= Math.min(ans, dp[m-1][i]);
+        return ans;
     }
 }
 // @lc code=end
