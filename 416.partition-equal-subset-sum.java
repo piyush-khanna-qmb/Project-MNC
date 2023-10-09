@@ -7,21 +7,6 @@
 // @lc code=start
 class Solution 
 {
-    private int f(int nums[], int i, int tar, int dp[][])
-    {
-        if(tar == 0)
-            return 1;
-        if(i<0 || tar<0)
-            return 0;
-        if(dp[i][tar]!=-1)
-            return dp[i][tar];
-
-        int take= f(nums, i-1, tar-nums[i], dp);
-        if(take == 1)
-            return 1;
-        return  f(nums, i-1, tar, dp);
-    }
-
     public boolean canPartition(int[] nums) 
     {
         int sum= 0;
@@ -37,18 +22,18 @@ class Solution
         for(int i= 0; i<n; i++)
             dp[i][0]= true;
         
-        for(int i= 1; i<n; i++)
+        for(int i= 1; i<=n-1; i++)
         {
             for(int tar= 1; tar<=sum/2; tar++)
             {
                 boolean take= false;
                 if(tar>=nums[i])
                     take= dp[i-1][tar-nums[i]];
-                boolean notTake= dp[i-1][tar];
-                dp[i][tar]= take||notTake;
+                boolean noTake= dp[i-1][tar];
+                dp[i][tar]= take || noTake;
             }
         }
-        return dp[n-1][sum/2-1];
+        return dp[n-1][sum/2];
     }
 }
 // @lc code=end
