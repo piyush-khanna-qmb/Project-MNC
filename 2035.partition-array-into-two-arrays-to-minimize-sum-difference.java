@@ -11,10 +11,8 @@ class Solution
     {
         int totSum= Arrays.stream(nums).sum();
         int target= totSum/2;
-
         boolean dp[]= new boolean[target+1];
         dp[0]= true;
-
         for(int num: nums)
         {
             for(int i= target; i>=num; i--)
