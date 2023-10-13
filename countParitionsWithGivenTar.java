@@ -25,15 +25,13 @@ public class Solution
 
 	public static int countPartitions(int n, int d, int[] arr) 
     {
-        int sum = Arrays.stream(arr).sum();
-        int tar = (sum - d) / 2;
-        if ( tar<0 || (sum - d) % 2 != 0)
+        int tot= Arrays.stream(arr).sum();
+        if(tot-d < 0 || (tot-d)%2 == 1)
             return 0;
-
-        int dp[][] = new int[n][tar + 1];
-        for (int k[] : dp)
-            Arrays.fill(k, -1);
-
-        return f(n - 1, tar, arr, dp);
+        int tar= (tot-d)/2;
+        int dp[][]= new int[n][tar+1];
+        for(int i[]: dp)
+            Arrays.fill(i, -1);
+        return f(n-1, tar, arr, dp);
 	}
 }
