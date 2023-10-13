@@ -7,24 +7,32 @@
 // @lc code=start
 class Solution 
 {
-    private int f(int i, int amount, int coins[])
+    private int f(int i, int amount, int coins[], int dp[][]) 
     {
-        if(i == 0) {
-            if(amount%coins[0] == 0)
+        if(i == 0)
+        {
+            if(amount%coins[i] == 0)
                 return amount/coins[0];
-            else
-                return Integer.MAX_VALUE-1;
+            return (int) 1e9;
         }
-        
-        int take= (amount>=coins[i]) ? 1 + f(i, amount-coins[i], coins) : Integer.MAX_VALUE;
-        int noTake= f(i-1, amount, coins);
+        if(dp[i][amount] != -1)
+            return dp[i][amount];
 
-        return Math.min(take,noTake);
+        int take= (amount>=coins[i]) ? 1 + f(i, amount-coins[i], coins, dp) : (int) 1e9;
+        int noTake= f(i-1, amount, coins, dp);
+
+        return dp[i][amount]= Math.min(take, noTake);
     }
-
     public int coinChange(int[] coins, int amount) 
     {
-        return f(coins.length-1, amount, coins);
+        int dp[][]= new int[coins.length][amount+1];
+        for(int r[]: dp)
+            Arrays.fill(r, -1);
+
+        int tt= f(coins.length-1, amount, coins, dp);
+        if(tt >= 1e8)
+            return -1;
+        return tt;
     }
 }
 // @lc code=end
