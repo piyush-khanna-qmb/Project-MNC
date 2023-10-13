@@ -20,9 +20,21 @@ public class Solution
     }
     public static int findWays(int num[], int tar) 
     {
-        int dp[][]= new int[num.length][tar+1];
-        for(int n[]: dp)
-            Arrays.fill(n, -1);
-        return f(num, tar, num.length-1, dp);
+        int n= num.length;
+        int dp[][]= new int[n][tar+1];
+        for(int i= 0; i<n; i++)
+            dp[i][0]= 1;
+        int mod= (int) Math.pow(10,9)+7;
+
+        for(int i= 1; i<n; i++)
+        {
+            for(int j= 1; j<=tar; j++)
+            {
+                int take= (j>=arr[i]) ? f(arr, tar-arr[i], i-1, dp)%mod : 0;
+                int notTake= f(arr, tar, i-1, dp)%mod;
+                dp[i][tar]= take+notTake;
+            }
+        }
+
     }
 }
