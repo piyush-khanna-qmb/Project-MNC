@@ -28,6 +28,7 @@ class Solution
             else if (-ans < Integer.MIN_VALUE)
                 return Integer.MIN_VALUE;
         }
+        
         if (neg)
             return (int)-ans;
         else
