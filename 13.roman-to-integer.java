@@ -29,7 +29,6 @@ class Solution
                 sum-= cur;
             else
                 sum+= cur;
-
             prev= cur;
         }
         return sum;
