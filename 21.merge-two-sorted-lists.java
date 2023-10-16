@@ -39,6 +39,7 @@ class Solution
                 head.next= list1;
                 list1= list1.next;
             }
+            
             head= head.next;
         }
         if(list1!=null)
