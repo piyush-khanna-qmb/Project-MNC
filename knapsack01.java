@@ -5,15 +5,14 @@ public class Solution
 {
     static int f(int i, int maxWeight, int weight[], int value[], int dp[][])
     {
-        if(i < 0)
-            return 0;
+        if(i<0)
+            return 0;  
         if(dp[i][maxWeight] != -1)
             return dp[i][maxWeight];
-        
-        int take= (maxWeight>=weight[i]) ? value[i] + f(i-1, maxWeight-weight[i], weight, value, dp) : Integer.MIN_VALUE;
-        int notTake= f(i-1, maxWeight, weight, value, dp);
 
-        return dp[i][maxWeight]= Math.max(take, notTake);
+        int take= (maxWeight>=weight[i]) ? value[i] + f(i-1, maxWeight-weight[i], weight, value, dp) : 0;
+        int noTake= f(i-1, maxWeight, weight, value, dp);
+        return dp[i][maxWeight]= Math.max(take, noTake);
     }
 
     static int knapsack(int[] weight, int[] value, int n, int maxWeight) 
