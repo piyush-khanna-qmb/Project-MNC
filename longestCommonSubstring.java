@@ -1,34 +1,25 @@
 import java.util.*;
-public class longestCommonSubstring
+public class Solution
 {
     public static int lcs(String str1, String str2)
     {
-        int m= str1.length(), n= str2.length(), max= Integer.MIN_VALUE;
-        int dp[][]= new int[m+1][n+1];
-        for(int i= 0; i<=m; i++)
+        int n= str1.length(), m= str2.length(), ans= 0;
+        int prev[]= new int[m+1];
+        int cur[]= new int[m+1];
+        for(int i= 1; i<=n; i++)
         {
-            for(int j= 0; j<=n; j++)
+            for(int j= 1; j<=m; j++)
             {
-                if(i==0 || j==0)
-                    dp[i][j]= 0;
-                else if(str1.charAt(i-1) == str2.charAt(j-1))
+                if(str1.charAt(i-1) == str2.charAt(j-1))
                 {
-                    dp[i][j]= 1 + dp[i-1][j-1];
-                    max= Math.max(max, dp[i][j]);
+                    cur[j]= 1 + prev[j-1];
+                    ans= Math.max(ans, cur[j]);
                 }
                 else
-                    dp[i][j]= 0; 
+                    cur[j]= 0; 
             }
+            prev= Arrays.copyOf(cur, cur.length);
         }
-        return max;
-    }
-
-    public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        String t = sc.nextLine();
-        System.out.println(lcs(s, t));
+        return ans;
     }
 }
-
-
