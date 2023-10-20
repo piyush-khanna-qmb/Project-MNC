@@ -29,12 +29,31 @@ class Solution
     }
     public int maxProfit(int[] prices) 
     {
-        int dp[][][]= new int[prices.length][2][3];
-        for(int r[][]: dp)
-            for(int c[]: r)
-                Arrays.fill(c, -1);
+        int dp[][][]= new int[prices.length+1][2][3];
+
+        for(int i= prices.length-1; i>=0; i--)
+        {
+            for(int canBuy= 0; canBuy<2; canBuy++)
+            {
+                for(int cap= 1; cap<3; cap++)
+                {
+                    if(canBuy == 1)
+                    {
+                        int yaas= -prices[i] + dp[i+1][0][cap];
+                        int nah= dp[i+1][1][cap];
+                        dp[i][canBuy][cap]= Math.max(yaas, nah);
+                    }
+                    else
+                    {
+                        int yaas= prices[i] + dp[i+1][1][cap-1];
+                        int nah= dp[i+1][0][cap];
+                        dp[i][canBuy][cap]= Math.max(yaas, nah);
+                    }
+                }
+            }
+        }
         
-        return f(0, 1, 2, prices, dp);
+        return dp[0][1][2];
     }
 }
 // @lc code=end
