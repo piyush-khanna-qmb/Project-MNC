@@ -7,34 +7,33 @@
 // @lc code=start
 class Solution 
 {
-    private int f(int i, int j, char s[], char t[], int dp[][])
-    {
-        if(i==0)
-            return j;
-        if(j==0)
-            return i;
-
-        if(dp[i][j] != -1)
-            return dp[i][j];
-        
-        if(s[i-1] == t[j-1])
-            return dp[i][j]= f(i-1, j-1, s, t, dp);
-        else
-        {
-            //insert
-            int ins= 1 + f(i, j-1, s, t, dp);
-            int rep= 1 + f(i-1, j-1, s, t, dp);
-            int del= 1 + f(i-1, j, s, t, dp);
-            return dp[i][j]= Math.min(Math.min(ins, rep), del);
-        }
-    }
     public int minDistance(String word1, String word2) 
     {
-        int dp[][]= new int[word1.length()+1][word2.length()+1];
-        for(int r[]: dp)    
-            Arrays.fill(r, -1);
+        int m= word1.length(), n= word2.length();
+        int dp[][]= new int[m+1][n+1];
+        char s[]= word1.toCharArray(), t[]= word2.toCharArray();
+
+        for(int i= 0; i<=m; i++)
+        {
+            for(int j= 0; j<=n; j++)
+            {
+                if(i == 0)
+                    dp[i][j]= j;
+                else if(j == 0)
+                    dp[i][j]= i;
+                else if(s[i-1] == t[j-1])
+                    dp[i][j]= dp[i-1][j-1];
+                else
+                {
+                    int ins= 1 + dp[i][j-1];
+                    int rep= 1 + dp[i-1][j-1];
+                    int del= 1 + dp[i-1][j];
+                    dp[i][j]= Math.min(Math.min(ins, rep), del);
+                }
+            }
+        }
         
-        return f(word1.length(), word2.length(), word1.toCharArray(), word2.toCharArray(), dp);
+        return dp[m][n];
     }
 }
 // @lc code=end
