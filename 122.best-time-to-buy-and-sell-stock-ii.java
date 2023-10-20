@@ -4,32 +4,20 @@
  * [122] Best Time to Buy and Sell Stock II
  */
 
+// For every valley that rises, there's a mountain of joy (profit) 😉
+
 // @lc code=start
 class Solution
 {
     public int maxProfit(int[] a) 
     {
-        int m= Integer.MAX_VALUE, grPro= 0, pro, tPro= 0;
-        for(int i=0; i<a.length; i++)
-        {
-            if(a[i] < m)
-            {
-                m= a[i];
-            }
-            pro= a[i] - m;
-            if(pro > grPro)
-                grPro= pro;
-            if(i<a.length-1 && a[i] > a[i+1])
-            {
-                tPro += grPro;
-                m= a[i+1];
-                grPro= 0;
-            }
+        int last= a[0], pro= 0;
+        for(int ele: a) {
+            if(ele > last)  
+                pro+= (ele-last);
+            last= ele;
         }
-        tPro+= grPro;
-        
-        return tPro;
+        return pro;
     }
 }
 // @lc code=end
-
