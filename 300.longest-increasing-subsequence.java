@@ -5,30 +5,27 @@
  */
 
 // @lc code=start
+
+// https://www.youtube.com/watch?v=cjWnW0hdF1Y
+
 class Solution 
 {
-    private int f(int i, int j, int a[], int dp[][])
-    {
-        if(i > a.length)
-            return 0;
-        if(dp[i][j] != -1)
-            return dp[i][j];
-
-        if(j == 0 || a[i-1] > a[j-1])
-        {
-            int take= 1 + f(i+1, i, a, dp);
-            int noTake= f(i+1, j, a, dp);
-            return dp[i][j]= Math.max(take, noTake);
-        }
-        return dp[i][j]= f(i+1, j, a, dp);
-    }
-    public int lengthOfLIS(int[] nums) 
+    public int lengthOfdp(int[] nums) 
     {
         int n= nums.length;
-        int dp[][]= new int[n+1][n+1];
-        for(int r[]: dp)
-            Arrays.fill(r, -1);
-        return f(1, 0, nums, dp);
+        int dp[]= new int[n];
+        Arrays.fill(dp, 1);
+
+        for(int i= n-2; i>=0; i--)
+        {
+            for(int j= i+1; j<n; j++)
+            {
+                if(nums[i] < nums[j])
+                    dp[i]= Math.max(dp[i], 1+dp[j]);
+            }
+        }
+
+        return Arrays.stream(dp).max().getAsInt();
     }
 }
 // @lc code=end
