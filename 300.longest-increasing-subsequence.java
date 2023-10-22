@@ -10,7 +10,7 @@
 
 class Solution 
 {
-    public int lengthOfdp(int[] nums) 
+    public int lengthOfLIS(int[] nums) 
     {
         int n= nums.length;
         int dp[]= new int[n];
