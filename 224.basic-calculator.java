@@ -9,7 +9,7 @@ class Solution
 {
     public int calculate(String s) 
     {
-            
+        
     }
 }
 // @lc code=end
