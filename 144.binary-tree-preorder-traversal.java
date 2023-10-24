@@ -22,15 +22,15 @@
  */
 class Solution 
 {
-    private void traverse(TreeNode root, List<Integer> ans)
-    {
-        if(root == null)
-            return;
+    // private void traverse(TreeNode root, List<Integer> ans)
+    // {
+    //     if(root == null)
+    //         return;
         
-        ans.add(root.val);
-        traverse(root.left, ans);
-        traverse(root.right, ans);
-    }
+    //     ans.add(root.val);
+    //     traverse(root.left, ans);
+    //     traverse(root.right, ans);
+    // }
 
     public List<Integer> preorderTraversal(TreeNode root) 
     {
@@ -38,7 +38,17 @@ class Solution
             return new ArrayList();
     
         List<Integer> ans= new ArrayList();
-        traverse(root, ans);
+        Stack<TreeNode> stack= new Stack();
+        stack.push(root);
+        while(!stack.isEmpty())
+        {
+            TreeNode ele= stack.pop();
+            ans.add(ele.val);
+            if(ele.right != null)
+                stack.push(ele.right);
+            if(ele.left != null)
+                stack.push(ele.left);
+        }
         return ans;
     }
 }
