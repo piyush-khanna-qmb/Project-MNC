@@ -22,28 +22,30 @@
  */
 class Solution
 {
-    private void f(TreeNode root, List<List<Integer>> ans, List<Integer> ls, Queue<Integer> q, int height)
-    {
-        if(root == null)
-            return;
-        TreeNode yeNode= q.poll();
-        if(ls.size() > (int) Math.pow(2, height))
-        {
-            ans.add(ls);
-            ls.clear();
-        }
-        if(root.left != null)
-            yeNode.add(root.left);
-        if(root.right!= null)
-            yeNode.add(root.right);
-        f(q.poll(), )
-    }
-
     public List<List<Integer>> levelOrder(TreeNode root) 
     {
-        Queue<Integer> q= new Queue();
+        Queue<TreeNode> q= new LinkedList();
         List<List<Integer>> ans= new ArrayList();
-        f()
+        if(root == null)
+            return ans;
+
+        q.offer(root);
+
+        while(!q.isEmpty())
+        {
+            int lev= q.size();
+            List<Integer> andarKiList= new ArrayList();
+            for(int i= 0; i<lev; i++)
+            {
+                if(q.peek().left != null)
+                    q.offer(q.peek().left);
+                if(q.peek().right != null)
+                    q.offer(q.peek().right);
+                
+                andarKiList.add(q.poll().val);
+            }
+            ans.add(andarKiList);
+        }
         return ans;
     }
 }
