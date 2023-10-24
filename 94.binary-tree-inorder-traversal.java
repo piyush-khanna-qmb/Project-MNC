@@ -22,23 +22,29 @@
  */
 class Solution 
 {
-    private void traverse(TreeNode root, List<Integer> ans)
-    {
-        if(root.left != null)
-            traverse(root.left, ans);
-
-        ans.add(root.val);
-
-        if(root.right != null)
-            traverse(root.right, ans);
-        
-    }
     public List<Integer> inorderTraversal(TreeNode root) 
     {
         if(root == null)
             return new ArrayList();
         List<Integer> ans= new ArrayList();
-        traverse(root, ans);
+        Stack<TreeNode> st= new Stack();
+        TreeNode node= root;
+        while(true)
+        {
+            if(node != null)
+            {
+                st.push(node);
+                node= node.left;
+            }
+            else
+            {
+                if(st.isEmpty())
+                    break;
+                node= st.pop();
+                ans.add(node.val);
+                node= node.right;  
+            }
+        }
         return ans;
     }
 }
