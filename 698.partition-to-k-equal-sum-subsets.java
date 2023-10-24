@@ -7,35 +7,36 @@
 // @lc code=start
 class Solution 
 {
-    private void hui(List<List<Integer>> ans, List<Integer> ds, int tar, int ind, int cnt[], int arr[])
+    private int f(int i, int tar, int a[], int dp[][])
     {
         if(tar == 0)
-        {
-            cnt[0]+= 1;
-            ans.add(new ArrayList(ds));
-            return;
-        }
-        if(ind>=arr.length || arr[ind]>tar)
-            return;
-        
-        for(int i= ind; i<arr.length; i++)
-        {
-            if(i!=ind && arr[i]==arr[i-1])
-                continue;
-            ds.add(arr[i]);
-            hui(ans, ds, tar-arr[i], i+1, cnt, arr);
-            ds.remove(ds.size()-1);
-        }
+            return 1;
+        if(i<0)
+            return 0;
+        else if(dp[i][tar] != -1)
+            return dp[i][tar];
+
+        int take= (tar >= a[i]) ? f(i-1, tar-a[i], a, dp) : 0;
+        int noTake= f(i-1, tar, a, dp);
+        return dp[i][tar]= take+noTake;
     }
+
     public boolean canPartitionKSubsets(int[] nums, int k) 
     {
-        List<List<Integer>> ans= new ArrayList();
+        int tot= Arrays.stream(nums).sum();
+        if(tot%k != 0)
+            return false;
+        
         Arrays.sort(nums);
-        int cnt[]= {0};
-        int tar= Arrays.stream(nums).sum()/k;
-        hui(ans, new ArrayList(), tar, 0, cnt, nums);
-        return cnt[0]==k;
+        int tar= tot/k;
+        int dp[][]= new int[nums.length][tar+1];
+        for(int r[]: dp)
+            Arrays.fill(r, -1);
+
+        // Count number of subsets that have target= tar
+        int ans= f(nums.length-1, tar, nums, dp);
+        System.out.println(ans);
+        return true;
     }
 }
 // @lc code=end
-
