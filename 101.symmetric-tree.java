@@ -22,6 +22,7 @@ class Solution
         
         return s.val==t.val && checkKariyo(s.left, t.right) && checkKariyo(s.right, t.left);
     }
+    
     public boolean isSymmetric(TreeNode root) 
     {
         if(root == null)
