@@ -7,6 +7,7 @@
 // @lc code=start
 class Solution 
 {
+    //streak ke liye kya kuchh nahi karna padhta
     int facto(int n)
     {
         if (n==0 || n==1)

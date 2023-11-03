@@ -16,7 +16,7 @@ class Solution
             b= Math.min(a[i], a[j]);
             if(l*b > Mar)
                 Mar= l*b;
-
+            // Streak ke liye kya kya karna padhta hais
             if(a[i] > a[j])
                 j--;
             else
