@@ -44,35 +44,7 @@ class Solution
 
     private void bfsKarde(List<Integer> ls, Map<TreeNode, TreeNode> papaJi, TreeNode target, int k, Set<TreeNode> visited)
     {
-        // Queue<TreeNode> q= new LinkedList();
-        // q.offer(root);
-        // int i= 0;
-        // while(!q.isEmpty())
-        // {
-        //     if(i == k)
-        //         break;
-        //     int size= q.size();
-        //     for(int j= 0; j<size; j++)
-        //     {
-        //         TreeNode ye= q.poll();
-        //         if(ye.left != null && !vis[ye.left.val]) {
-        //             q.offer(ye.left);
-        //             vis[ye.val]= true;
-        //         }
-        //         if(ye.right != null && !vis[ye.right.val]) {
-        //             q.offer(ye.right);
-        //             vis[ye.val]= true;
-        //         }
-        //         if(papaJi.get(ye) != null && !vis[papaJi.get(ye).val]) {
-        //             q.offer(papaJi.get(ye));
-        //             vis[papaJi.get(ye).val]= true;
-        //         }
-        //     }
-        //     i++;
-        // }
-        // for(TreeNode t: q)
-        //     ls.add(t.val);
-         Queue<TreeNode> q = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
         q.offer(target);
         visited.add(target);
         int distance = 0;
