@@ -17,99 +17,67 @@
 public class Codec 
 {
     // Encodes a tree to a single string.
-    public String serialize(TreeNode root) 
-    {
-        if(root == null)
-            return "";
-        Queue<TreeNode> q= new LinkedList();
-        String tt= ""+root.val+" ";
-        q.offer(root);
-        while(!q.isEmpty())
-        {
-            int s= q.size();
-            for(int i= 0; i<s; i++)
-            {
-                TreeNode ye= q.poll();
-                if(ye.left != null) {
-                    q.offer(ye.left);
-                    tt+= ""+ye.left.val+" ";
-                }
-                else
-                    tt+= "n ";
-
-                if(ye.right != null) {
-                    q.offer(ye.right);
-                    tt+= ye.right.val+" ";
-                }
-                else
-                    tt+= "n ";
-            }
-        }
-        int len= tt.length()-1;
-        for(int i= tt.length()-1; i>=0; i--)
-        {
-            if(tt.charAt(i) != 'n' && tt.charAt(i)!= ' ')
-            {
-                len= i;
-                break;
-            }
-        }
-        System.out.println(tt);
-        return tt.substring(0, len+1);
+    public String serialize(TreeNode root) {
+    if (root == null) {
+        return "";
     }
 
-    // Decodes your encoded data to tree.
-    public TreeNode deserialize(String data) 
-    {
-        if(data.length() == 0)
-            return null;
+    Queue<TreeNode> q = new LinkedList<>();
+    StringBuilder result = new StringBuilder();
 
-        String vals[]= data.split(" ");
-        int height= (int) (Math.log(vals.length-1)/Math.log(2));
-        // for(int i= 0; i<=height; i++)
-        // {
-        //     if(!vals[i].equals("n"))
-        //     {
-        //         TreeNode ye= new TreeNode(Integer.parseInt(vals[i]));
-        //         if(i==0)
-        //             root= ye;
-                
-        //         TreeNode left= (vals[i*2+1].equals("n")) ? null : new TreeNode(Integer.parseInt(vals[i*2+1]));
+    q.offer(root);
+    while (!q.isEmpty()) {
+        int s = q.size();
+        for (int i = 0; i < s; i++) {
+            TreeNode current = q.poll();
 
-        //         TreeNode right= (vals[i*2+2].equals("n")) ? null : new TreeNode(Integer.parseInt(vals[i*2+2]));
-
-        //         ye.left= left;
-        //         ye.right= right;
-        //     }
-        // }
-
-        Queue<TreeNode> q= new LinkedList();
-        TreeNode root= new TreeNode(Integer.parseInt(vals[0]));
-        q.offer(root);
-        int c= 0;
-        while(!q.isEmpty() && c<=height)
-        {
-            int s= q.size();
-            for(int i= 0; i<s; i++)
-            {
-                TreeNode ye= q.poll();
-                if(ye == null)
-                    continue;
-
-                TreeNode left= (vals[(c*2)+1].equals("n")) ? null : new TreeNode(Integer.parseInt(vals[(c*2)+1]));
-
-                TreeNode right= (vals[(c*2)+2].equals("n")) ? null : new TreeNode(Integer.parseInt(vals[(c*2)+2]));
-
-                ye.left= left;
-                ye.right= right;
-                q.offer(left);
-                q.offer(right);
-                c++;
+            if (current != null) {
+                result.append(current.val).append(" ");
+                q.offer(current.left);
+                q.offer(current.right);
+            } else {
+                result.append("n ");
             }
         }
-        
-        return root;
     }
+
+    System.out.println(result.toString());
+    return result.toString();
+}
+
+    public TreeNode deserialize(String data) {
+    if (data.length() == 0) {
+        return null;
+    }
+
+    String[] vals = data.split(" ");
+    Queue<TreeNode> q = new LinkedList<>();
+    TreeNode root = new TreeNode(Integer.parseInt(vals[0]));
+    q.offer(root);
+
+    int i = 1; // Start from index 1 since the root is already processed
+    while (!q.isEmpty() && i < vals.length) {
+        int s = q.size();
+        for (int j = 0; j < s && i < vals.length; j++) {
+            TreeNode current = q.poll();
+
+            if (!vals[i].equals("n")) {
+                current.left = new TreeNode(Integer.parseInt(vals[i]));
+                q.offer(current.left);
+            }
+            i++;
+
+            if (i < vals.length && !vals[i].equals("n")) {
+                current.right = new TreeNode(Integer.parseInt(vals[i]));
+                q.offer(current.right);
+            }
+            i++;
+        }
+    }
+
+    return root;
+}
+
 }
 
 // Your Codec object will be instantiated and called as such:
@@ -117,4 +85,3 @@ public class Codec
 // Codec deser = new Codec();
 // TreeNode ans = deser.deserialize(ser.serialize(root));
 // @lc code=end
-
