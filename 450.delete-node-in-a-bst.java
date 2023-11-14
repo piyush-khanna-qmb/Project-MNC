@@ -24,7 +24,38 @@ class Solution
 {
     public TreeNode deleteNode(TreeNode root, int key) 
     {
+        if(tmp == null)
+            return null;
+
+        if(tmp.val == key)
+            return rootKeChochle(root, key);;
+
+        TreeNode tmp= root;
+        while(tmp != null)
+        {
+            if(tmp.left!=null && tmp.left.val == key)
+            {
+                
+            }
+        }
+    }
+    private TreeNode rootKeChochle(TreeNode root, int key)
+    {
+        if(root.left == null)
+            return rot.right;
+        if(root.right == null)
+            return root.left;
         
+        TreeNode aakhri= aakhriNodeDedeMerkoBhainsdike(root.left);
+        aakhri.right= root.right;
+        return root.left;
+    }
+    private TreeNode aakhriNodeDedeMerkoBhainsdike(TreeNode root)
+    {
+        TreeNode tmp= root;
+        while(tmp.right != null)
+            tmp= tmp.right;
+        return tmp;
     }
 }
 // @lc code=end
