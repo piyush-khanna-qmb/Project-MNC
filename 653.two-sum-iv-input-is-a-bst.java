@@ -22,80 +22,30 @@
  */
 class Solution 
 {
-    static class BinaryIterator
-    {
-        Stack<TreeNode> seedha;
-        Stack<TreeNode> ulta;
-        public BinaryIterator(TreeNode root)
-        {
-            seedha= new Stack();
-            ulta= new Stack();
-            TreeNode tmp= root;
-            while(tmp != null)
-            {
-                seedha.push(tmp);
-                tmp= tmp.left;
-            }
-            tmp= root;
-            while(tmp != null)
-            {
-                ulta.push(tmp);
-                tmp= tmp.right;
-            }
-        }
-        int next()
-        {
-            TreeNode yahi= seedha.pop();
-            if(yahi.right != null)
-            {
-                TreeNode tmp= yahi.right;
-                while(tmp != null)
-                {
-                    seedha.push(tmp);
-                    tmp= tmp.left;
-                }
-            }
-            return yahi.val;
-        }
-        int prev()
-        {
-            TreeNode yahi= ulta.pop();
-            if(yahi.left != null)
-            {
-                TreeNode tmp= yahi.left;
-                while(tmp != null)
-                {
-                    ulta.push(tmp);
-                    tmp= tmp.right;
-                }
-            }
-            return yahi.val;
-        }
-        boolean hasNext()
-        {
-            return !seedha.isEmpty();
-        }
-        boolean hasPrev()
-        {
-            return !ulta.isEmpty();
-        }
-    }
-
     public boolean findTarget(TreeNode root, int k) 
     {
-        BinaryIterator it= new BinaryIterator(root);
-        int agla= it.next();
-        int pichhla= it.prev();
-        while(agla > pichhla )
+        List<Integer> ls= new ArrayList();
+        banaaiyo(ls, root);
+
+        int i= 0, j= ls.size()-1;
+        while(i<j)
         {
-            if(agla+pichhla == k)
+            if(ls.get(i) + ls.get(j) == k)
                 return true;
-            else if(agla+pichhla < k)
-                agla= (it.hasNext()) ? it.next() : -100000;
+            else if(ls.get(i)+ls.get(j) < k)
+                i++;
             else
-                pichhla= (it.hasPrev()) ? it.prev() : 100000;
+                j--;
         }
         return false;
+    }
+    private void banaaiyo(List<Integer> ls, TreeNode root)
+    {
+        if(root == null)
+            return;
+        banaaiyo(ls, root.left);
+        ls.add(root.val);
+        banaaiyo(ls, root.right);
     }
 }
 // @lc code=end
