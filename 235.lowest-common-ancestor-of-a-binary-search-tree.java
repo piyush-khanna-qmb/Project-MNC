@@ -20,17 +20,17 @@ class Solution
 {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) 
     {
-        if(root==null || root==p || root==q)
-            return root;
-        
-        TreeNode leftWala= lowestCommonAncestor(root.left, p, q);
-        TreeNode rightWala= lowestCommonAncestor(root.right, p, q);
-
-        if(leftWala == null)
-            return rightWala;
-        if(rightWala == null)
-            return leftWala;
-        return root;
+        TreeNode temp= root;
+        while(temp!=null)
+        {
+            if(p.val<temp.val && q.val<temp.val)
+                temp= temp.left;
+            else if(p.val>temp.val && q.val>temp.val)
+                temp= temp.right;
+            else
+                return temp;
+        }
+        return temp;
     }
 }
 // @lc code=end
