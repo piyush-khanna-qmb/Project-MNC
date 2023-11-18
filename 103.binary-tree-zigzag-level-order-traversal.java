@@ -41,6 +41,7 @@ class Solution
                 else
                     lis.add(q.poll().val);
             }
+            
             ultaade = !ultaade;
             ans.add(lis);
         }
