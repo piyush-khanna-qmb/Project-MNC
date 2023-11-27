@@ -6,13 +6,11 @@ class inorderSuccessorInBST
         tn gr= null;
         while(tmp != null)
         {
-            if(tmp.val > p.val)
-            {
+            if(tmp.val > p.val) {
                 gr= tmp;
                 tmp= tmp.left;
             }
-            else if(temp.val < p.val)
-            {
+            else if(temp.val < p.val) {
                 tmp= tmp.right;
             }
         }
