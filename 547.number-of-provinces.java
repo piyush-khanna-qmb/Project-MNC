@@ -10,7 +10,6 @@ class Solution
     List<List<Integer>> getAdjList(int[][] isConnected)
     {
         List<List<Integer>> adj= new ArrayList();
-        
     }
     public int findCircleNum(int[][] isConnected) 
     {
