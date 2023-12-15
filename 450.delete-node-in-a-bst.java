@@ -24,49 +24,33 @@ class Solution
 {
     public TreeNode deleteNode(TreeNode root, int key) 
     {
-        TreeNode tmp= root;
-        TreeNode papaji= null;
-        while (tmp != null)
-        {
-            if((tmp.right!=null && tmp.right.val == key) || (tmp.left!=null tmp.left == key))
-            {
-                papaji= tmp;
-                break;
-            }
-            if(tmp.val > key)
-                tmp= tmp.left;
-            else
-                tmp= tmp.right;
-        }
-        if(papaji == null)
-            return null;
+        if(root == null)
+            return root;
         
-        if(papaji.left.val == key)
+        if(root.val > key)
+            root.left= deleteNode(root.left, key);
+        else if(root.val < key)
+            root.right= deleteNode(root.right, key);
+        else    // Pakda gaya bhosdika
         {
-            TreeNode baaju= papaji.right;
-            if(papaji.left.left != null)
-                addToExtremeRight(papaji.left, baaju);
-            else
-                papaji.left= papaji.left.right;
-        }
-        else    // right me key
-        {
-            TreeNode
+            if(root.right == null)
+                return root.left;
+            if(root.left == null)
+                return root.right;
+            
+            root.val= minWala(root.right);
+            root.right= deleteNode(root.right, root.val);
         }
     }
-
-    // private void doBullshit()
-    // {
-
-    // }
-
-    private void addToExtremeRight(TreeNode root, TreeNode nn)
+    private int minWala(TreeNode root)
     {
-        TreeNode tmp= root;
-        while(tmp!=null && tmp.right != null)
-            tmp= tmp.right;
-        
-        tmp.right= nn;
+        int min= root.val;
+        while(root.left!=null)
+        {
+            min= Math.min(min, root.left.val);
+            root= root.left;
+        }
+        return min;
     }
 }
 // @lc code=end
