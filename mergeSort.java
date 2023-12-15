@@ -1,34 +1,38 @@
 import java.util.*;
 class mergeSort
 {
-    private static void merge(int arr[], int low, int mid, int high)
+    private static void mS(int arr[], int st, int end)
     {
-        int tmp[]= new int[high-low+1];
-        int k= 0, i= low, j= mid+1;
-        while(i<=mid && j<=high) 
+        if(st < end)
         {
-            if(arr[i]<=arr[j])
+            int mid= (st+end)/2;
+            mS(arr, st, mid);
+            mS(arr, mid+1, end);
+            merge(arr, st, mid, end);
+        }
+    }
+
+    private static void merge(int arr[], int st, int mid, int end)
+    {
+        int tmp[]= new int[end-st+1];
+        int i= st, j= mid+1, k= 0;
+
+        while(i<=mid && j<=end)
+        {
+            if(arr[i] <= arr[j])
                 tmp[k++]= arr[i++];
             else
                 tmp[k++]= arr[j++];
         }
         while(i<=mid)
             tmp[k++]= arr[i++];
-        while(j<=high)
+        while(j<=end)
             tmp[k++]= arr[j++];
         
-        for(k=low; k<=high; k++)
-            arr[k]= tmp[k-low];
+        for(int t= 0; t<tmp.length; t++)
+            arr[st+t]= tmp[t];
     }
-    private static void mS(int arr[], int low, int high)
-    {
-        if(low >= high)
-            return;
-        int mid= (low+high)/2;
-        mS(arr, low, mid);
-        mS(arr, mid+1, high);
-        merge(arr, low, mid, high);
-    }
+
     public static void main(String args[])
     {
         int a[]= {12,45,78,9,4,2,65,8,23,1,7,97,2};
