@@ -7,36 +7,34 @@
 // @lc code=start
 class Solution 
 {
-    private int expand(String s, int left, int right)
+    private int expand(String s, int l, int r)
     {
-        while(left>=0 && right<s.length() && s.charAt(left) == s.charAt(right))
-        {
-            left--;
-            right++;
+        while(l>=0 && r<s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
         }
-        return right-left-1;
+        return r-l-1;
     }
     public String longestPalindrome(String s) 
     {
-        int n= s.length();
-        if(n<=1)
+        if(s.length() <= 1)
             return s;
-        
-        int left= 0, right= 0, l1, l2, len;
-        for(int i=0; i<n; i++)
+        int left= 0, right= 0, mxLen= 0;
+        for(int i= 0; i<s.length(); i++)
         {
-            l1= expand(s, i, i);   // Odd Palin
-            l2= expand(s, i, i+1); // Even palin
-            len= Math.max(l1, l2);
-
-            if(len > right-left)
+            int l1= expand(s, i, i); // Odd
+            int l2= expand(s, i, i+1);  //Even
+            int len= Math.max(l1, l2);
+            
+            if(mxLen < len)
             {
+                mxLen= len;
                 left= i - (len-1)/2;
-                right= i+ len/2;
+                right= i + len/2;
             }
         }
+        System.out.println(mxLen);
         return s.substring(left, right+1);
     }
 }
 // @lc code=end
-
