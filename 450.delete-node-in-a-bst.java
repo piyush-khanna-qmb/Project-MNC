@@ -24,56 +24,49 @@ class Solution
 {
     public TreeNode deleteNode(TreeNode root, int key) 
     {
-        if(root == null)
-            return null;
-
-        if(root.val == key)
-            return rootKeChochle(root);
-
         TreeNode tmp= root;
-        while(tmp != null)
+        TreeNode papaji= null;
+        while (tmp != null)
         {
-            if(key < tmp.val)
+            if((tmp.right!=null && tmp.right.val == key) || (tmp.left!=null tmp.left == key))
             {
-                if(tmp.left!=null && tmp.left.val == key)
-                {
-                    tmp.left= rootKeChochle(tmp.left);
-                    break;
-                }
-                else
-                    tmp= tmp.left;
+                papaji= tmp;
+                break;
             }
+            if(tmp.val > key)
+                tmp= tmp.left;
             else
-            {
-                if(tmp.right!=null && tmp.right.val == key)
-                {
-                    tmp.right= rootKeChochle(tmp.right);
-                    break;
-                }
-                else
-                    tmp= tmp.right;
-            }
+                tmp= tmp.right;
         }
-        return root;
-    }
-    private TreeNode rootKeChochle(TreeNode root)
-    {
-        if(root.left == null)
-            return root.right;
-        if(root.right == null)
-            return root.left;
+        if(papaji == null)
+            return null;
         
-        TreeNode lastChild= root.right;
-        TreeNode aakhri= aakhriNodeDedeMerkoBhainsdike(root.left);
-        aakhri.right= lastChild;
-        return root.left;
+        if(papaji.left.val == key)
+        {
+            TreeNode baaju= papaji.right;
+            if(papaji.left.left != null)
+                addToExtremeRight(papaji.left, baaju);
+            else
+                papaji.left= papaji.left.right;
+        }
+        else    // right me key
+        {
+            TreeNode
+        }
     }
-    private TreeNode aakhriNodeDedeMerkoBhainsdike(TreeNode root)
+
+    // private void doBullshit()
+    // {
+
+    // }
+
+    private void addToExtremeRight(TreeNode root, TreeNode nn)
     {
         TreeNode tmp= root;
-        while(tmp.right != null)
+        while(tmp!=null && tmp.right != null)
             tmp= tmp.right;
-        return tmp;
+        
+        tmp.right= nn;
     }
 }
 // @lc code=end
