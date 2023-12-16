@@ -22,24 +22,22 @@
  */
 class Solution 
 {
-    private boolean kardiyo(TreeNode root, int min, int max)
-    {   
-        if(root == null)
-            return true;
-        if(root.val >= max || root.val <= min)
-            return false;
-
-        boolean leftH= kardiyo(root.left, min, root.val);
-        boolean rightH= kardiyo(root.right, root.val, max);
-
-        return leftH && rightH;
-    }
-    public boolean isValidBST(TreeNode root) 
+    private boolean validity(TreeNode root, long min, long max)
     {
         if(root == null)
             return true;
+        if(root.val >= max || root.val <= min)
+            return false;   
 
-        return kardiyo(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        boolean lefth= validity(root.left, min, root.val);
+        boolean righth= validity(root.right, root.val, max);
+
+        return lefth && righth;
+    }
+
+    public boolean isValidBST(TreeNode root) 
+    {
+        return validity(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 }
 // @lc code=end
