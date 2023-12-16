@@ -21,18 +21,18 @@ class Solution
     {
         if(head == null || head.next == null)
             return head;
-        ListNode prev, temp, next;
-        prev= temp= null;
+        
+        ListNode prev, next, curr;
+        prev= curr= null;
         next= head;
-        while(next!=null)
+        while(next != null)
         {
-            temp= next;
-            next= temp.next;
-            temp.next= prev;
-            prev= temp;
+            curr= next;
+            next= curr.next;
+            curr.next= prev;
+            prev= curr;
         }
-        return temp;
+        return curr;
     }
 }
 // @lc code=end
-
