@@ -24,27 +24,27 @@ class Solution
 {
     public List<List<Integer>> levelOrder(TreeNode root) 
     {
-        Queue<TreeNode> q= new LinkedList();
         List<List<Integer>> ans= new ArrayList();
         if(root == null)
             return ans;
-
+        
+        Queue<TreeNode> q= new LinkedList();
         q.offer(root);
 
         while(!q.isEmpty())
         {
             int lev= q.size();
-            List<Integer> andarKiList= new ArrayList();
+            List<Integer> mid= new ArrayList();
             for(int i= 0; i<lev; i++)
             {
-                if(q.peek().left != null)
-                    q.offer(q.peek().left);
-                if(q.peek().right != null)
-                    q.offer(q.peek().right);
-                
-                andarKiList.add(q.poll().val);
+                TreeNode yahi= q.poll();
+                mid.add(yahi.val);
+                if(yahi.left != null)
+                    q.offer(yahi.left);
+                if(yahi.right != null)
+                    q.offer(yahi.right);
             }
-            ans.add(andarKiList);
+            ans.add(mid);
         }
         return ans;
     }
