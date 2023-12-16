@@ -7,24 +7,23 @@
 // @lc code=start
 class Solution 
 {
-    public List<Integer> findDuplicates(int[] nums) 
+    public List<Integer> findDuplicates(int[] arr) 
     {
         List<Integer> ans= new ArrayList();
-        int n= nums.length;
-        // marking karlo
+        int n= arr.length;
+
         for(int i= 0; i<n; i++)
         {
-            int ind= nums[i]%n;
-            nums[ind]+= n;
+            int ind= arr[i]%n - 1;
+            arr[ind] += n;
         }
 
-        // chhaant lo
         for(int i= 0; i<n; i++)
         {
-            if(nums[i]/n >= 2)
-                ans.add(i);
+            if(arr[i] >= (n*2))
+                ans.add(i+1);
         }
-        
+
         return ans;
     }
 }
